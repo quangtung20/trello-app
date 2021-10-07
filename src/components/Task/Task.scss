@@ -1,0 +1,17 @@
+@import '../../setting';
+
+li.task-item{
+    background-color: rgb(190, 81, 81);
+    padding: $gap;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgb(67, 67, 77);
+    &:not(:last-child){
+      margin-bottom: 10px;
+    } 
+    img{
+      display: block;
+      width: calc(100% + 2 * #{$gap});
+      margin: -$gap 0 $gap (-$gap);
+      border-radius: 5px;
+    }
+  }

@@ -1,13 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
-$board-bg-color: rgb(159, 159, 197);
-$appbar-bg-color: rgb(49, 49, 73);
-$list-bg-color: white;
-$column-header-height:36px;
-$column-footer-height:36px;
-$column-border-radius:5px;
-$common-element-bg: rgba($color: #000000, $alpha: 0.3);
-$gap:10px;
+@import 'setting';
 
 body{
   margin: 0;
@@ -21,93 +13,19 @@ body{
   grid-template-rows: 40px 50px 1fr;
   line-height: 1.3em;
   background-color: $board-bg-color;
-  .navbar{
-    padding-left: $gap;
+  // .navbar{
+  //   padding-left: $gap;
+  //   display: flex;
+  //   align-items: center;
+    
+  // }
+
+  .navbar-board{
+    padding: $gap;
     display: flex;
     align-items: center;
-    &.app{
-      background-color: $appbar-bg-color;
-      font-size: 1.5rem;
-    }
-    &.board{
-      background-color: $board-bg-color;
-      font-size: 1.1rem;
-    }
-  }
-  .board-columns{
-    margin: 0 $gap $gap;
-    display: flex;
-    overflow-x: auto;
-    &::-webkit-scrollbar{
-      -webkit-appearance: none;
-    }
-    &::-webkit-scrollbar:horizontal{
-      height: 11px;
-    }
-    &::-webkit-scrollbar-thumb{
-      background-color:$common-element-bg ;
-      border-radius: 8px ;
-    }
-    .column{
-      flex: 0 0 auto;
-      width: 300px;
-      height: calc(100%-#{$gap});
-      >*{
-        background-color: $list-bg-color;
-        color: #333;
-        padding: 8px;
-      }
-      header{
-        padding-left: 15px;
-        height: $column-header-height;
-        line-height: $column-footer-height;
-        font-size: 16px;
-        font-weight: bold;
-        border-top-left-radius: $column-border-radius;
-        border-top-right-radius: $column-border-radius;
-        margin-left: $gap;
-      }
-      footer{
-        padding-left: 10px;
-        height: $column-header-height;
-        line-height: $column-footer-height;
-        border-bottom-left-radius: $column-border-radius;
-        border-bottom-right-radius: $column-border-radius;
-        margin-left: $gap;
-      }
-      ul{
-        list-style-type: none;
-        margin: 0;
-        max-height: calc(100%-#{$column-header-height}-#{$column-footer-height});
-        overflow-y: auto;
-        &::-webkit-scrollbar{
-          -webkit-appearance: none;
-        }
-        &::-webkit-scrollbar:vertical{
-          width: 5px;
-        }
-        &::-webkit-scrollbar-thumb{
-          background-color:$common-element-bg ;
-          border-radius: 8px ;
-        }
-        margin-left: $gap;
-        li{
-          background-color: rgb(190, 81, 81);
-          padding: $gap;
-          border-radius: 5px;
-          box-shadow: 0 1px 1px rgb(67, 67, 77);
-          &:not(:last-child){
-            margin-bottom: 10px;
-          } 
-          img{
-            display: block;
-            width: calc(100% + 2 * #{$gap});
-            margin: -$gap 0 $gap (-$gap);
-            border-radius: 5px;
-          }
-        }
-      }
-    }
+    background-color: $board-bg-color;
+    font-size: 1.1rem;
   }
 }
 
