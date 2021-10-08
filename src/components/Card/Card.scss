@@ -1,6 +1,6 @@
 @import '../../setting';
 
-li.task-item{
+li.Card-item{
     background-color: rgb(190, 81, 81);
     padding: $gap;
     border-radius: 5px;
@@ -8,7 +8,7 @@ li.task-item{
     &:not(:last-child){
       margin-bottom: 10px;
     } 
-    img{
+    img.card-cover{
       display: block;
       width: calc(100% + 2 * #{$gap});
       margin: -$gap 0 $gap (-$gap);
