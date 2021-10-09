@@ -9,8 +9,9 @@ body{
 }
 .trello-master{
   height: 100vh;
-  display: grid;
-  grid-template-rows: 40px 50px 1fr;
+  // display: grid;
+  // grid-template-rows: 40px 50px 1fr;
+  overflow:hidden;
   line-height: 1.3em;
   background-color: $board-bg-color;
   // .navbar{
@@ -21,6 +22,7 @@ body{
   // }
 
   .navbar-board{
+    height: $navbar-app-height;
     padding: $gap;
     display: flex;
     align-items: center;
