@@ -5,7 +5,7 @@
     // margin: 0 $gap $gap;
     // display: flex;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: auto;
     &::-webkit-scrollbar{
       -webkit-appearance: none;
     }
