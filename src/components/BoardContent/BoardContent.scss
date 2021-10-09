@@ -6,6 +6,10 @@
     display: flex;
     overflow-x: auto;
     overflow-y: auto;
+    &:after{
+      content:'';
+      flex: 0 0 $gap;
+    }
     &::-webkit-scrollbar{
       -webkit-appearance: none;
     }
@@ -24,9 +28,10 @@
     }
     .add-new-column{
       width: 250px;
-      height: 32px;
-      line-height: 32px;
-      padding: 4px 0 4px 15px;
+      max-width: 250px;
+      height: 40px;
+      line-height: 40px;
+      // padding: 4px 4px 4px 15px;
       cursor: pointer;
       color:white;
       margin-left: $gap;
@@ -35,6 +40,33 @@
       border-radius: $column-border-radius;
       &:hover{
         background-color: hsla(0, 0%, 100%, .34);
+      }
+      i{
+        margin-right: 10px;
+      }
+    }
+    .enter-new-column{
+      width: 250px;
+      max-width: 250px;
+      line-height: 40px;
+      background-color: $column-bg-color;
+      border-radius: $column-border-radius;
+      padding: 0px 8px 0px 8px;
+      margin-left: $gap;
+      background-color:$list-bg-color;
+      input.input-enter-new-column{
+        margin: 5px 0;
+      }
+      span.cancel-new-column{
+          margin-left: $gap;
+          cursor: pointer;
+          i{
+            font-size: 18px;
+            color: rgb(133, 99, 156);
+            &:hover{
+              color: darken($color: rgb(133, 99, 156), $amount: 10);
+            }
+          }
       }
     }
   }
