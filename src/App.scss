@@ -14,12 +14,12 @@ body{
   overflow:hidden;
   line-height: 1.3em;
   background-color: $board-bg-color;
-  // .navbar{
-  //   padding-left: $gap;
-  //   display: flex;
-  //   align-items: center;
-    
-  // }
+  color: $app-main-text-color;
+  
+  .icon{
+    font-size: 14px;
+    margin-right: 3px;
+  }
 
   .navbar-board{
     height: $navbar-app-height;
