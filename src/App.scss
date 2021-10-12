@@ -48,6 +48,7 @@ body{
     [type=tel].form-control:focus, 
     [contenteditable].form-control:focus {
       box-shadow: none;
+      border: 1px solid blueviolet;
     }
     .btn:focus, .btn:active{
       outline: none !important;
@@ -62,6 +63,17 @@ body{
       &:focus{
         border: 1px solid blueviolet;
       }
+    }
+    span.cancel-icon{
+      margin-left: $gap;
+          cursor: pointer;
+          i{
+            font-size: 18px;
+            color: rgb(133, 99, 156);
+            &:hover{
+              color: darken($color: rgb(133, 99, 156), $amount: 10);
+            }
+          }
     }
 }
 
