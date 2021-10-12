@@ -56,6 +56,9 @@
       background-color:$list-bg-color;
       input.input-enter-new-column{
         margin: 5px 0;
+        &:focus{
+          border: 1px solid blueviolet;
+        }
       }
       span.cancel-new-column{
           margin-left: $gap;
