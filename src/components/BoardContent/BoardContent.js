@@ -16,7 +16,45 @@ function BoardContent() {
     const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
     const newColumnInputRef = useRef(null);
     const [newColumnTitle, setNewColumnTitle] = useState('');
+
+    useEffect(() => {
+        const boardFromDB = initialData.boards.find(
+            (board) => board.id === "board-1"
+        );
+        if (boardFromDB) {
+            setBoard(boardFromDB);
+            setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (newColumnInputRef && newColumnInputRef.current) {
+            newColumnInputRef.current.focus();
+            newColumnInputRef.current.select();
+        }
+    }, [openNewColumnForm]);
+
     const onNewColumnTitleChange = useCallback((e) => setNewColumnTitle(e.target.value), []);
+
+    const onUpdateColumn = (newColumnToUpdate) => {
+
+        const columnIdToUpdate = newColumnToUpdate.id;
+        let newColumns = [...columns];
+        const columnIndexToUpdate = newColumns.findIndex(i => i.id === columnIdToUpdate);
+
+        if (newColumnToUpdate._destroy) {
+            newColumns.splice(columnIndexToUpdate, 1);
+
+        } else {
+            newColumns.splice(columnIndexToUpdate, 1, newColumnToUpdate);
+        }
+        let newBoard = { ...board };
+        newBoard.columnOrder = newColumns.map(c => c.id);
+        newBoard.columns = newColumns;
+
+        setColumns(newColumns);
+        setBoard(newBoard);
+    }
 
     const addNewColumn = () => {
         if (!newColumnTitle) {
@@ -41,23 +79,6 @@ function BoardContent() {
         setNewColumnTitle('');
         toggleOpenNewColumnForm();
     }
-
-    useEffect(() => {
-        const boardFromDB = initialData.boards.find(
-            (board) => board.id === "board-1"
-        );
-        if (boardFromDB) {
-            setBoard(boardFromDB);
-            setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'));
-        }
-    }, []);
-
-    useEffect(() => {
-        if (newColumnInputRef && newColumnInputRef.current) {
-            newColumnInputRef.current.focus();
-            newColumnInputRef.current.select();
-        }
-    }, [openNewColumnForm]);
 
 
     if (isEmpty(board)) {
@@ -109,7 +130,7 @@ function BoardContent() {
             >
                 {columns.map((column, index) => (
                     <Draggable key={index}>
-                        <Column key={index} column={column} onCardDrop={onCardDrop} />
+                        <Column column={column} onCardDrop={onCardDrop} onUpdateColumn={onUpdateColumn} />
                     </Draggable>
 
                 ))}
