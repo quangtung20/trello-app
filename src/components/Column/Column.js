@@ -31,7 +31,7 @@ function Column(props) {
     }, [openNewCardForm]);
 
     const toggleShowConfirmModal = () => setShowConfirmModal(!showConfirmModal);
-    const cards = mapOrder(column.cards, column.cardOrder, 'id');
+    const cards = mapOrder(column.cards, column.cardOrder, '_id');
     const onConfirmModalAction = (type) => {
         if (type === MODAL_ACTION_CONFIRM) {
             const newColumn = {
@@ -67,14 +67,14 @@ function Column(props) {
         const newCardToAdd = {
             id: Math.random().toString(36).substr(2, 5),//random character, will remove when we implement code Api
             boardId: column.boardId,
-            columnId: column.id,
+            columnId: column._id,
             title: newCardTitle.trim(),
             cover: null
         }
 
         let newColumn = cloneDeep(column);
         newColumn.cards.push(newCardToAdd);
-        newColumn.cardOrder.push(newCardToAdd.id);
+        newColumn.cardOrder.push(newCardToAdd._id);
         onUpdateColumn(newColumn);
         setNewCardTitle('');
         toggleOpenNewCardForm();
@@ -115,7 +115,7 @@ function Column(props) {
                 <Container
                     orientation="vertical"
                     groupName="tung-col"
-                    onDrop={dropResult => onCardDrop(column.id, dropResult)}
+                    onDrop={dropResult => onCardDrop(column._id, dropResult)}
                     getChildPayload={(index) => cards[index]}
                     dragClass="card-ghost"
                     dropClass="card-ghost-drop"
