@@ -8,9 +8,10 @@ import ConfirmModal from "../Common/ConfirmModal";
 import { MODAL_ACTION_CLOSE, MODAL_ACTION_CONFIRM } from '../../ultilities/constants';
 import { saveContentAfterPressEnter, selectAllInText } from '../../ultilities/contentEditable';
 import { cloneDeep } from 'lodash';
+import { createNewCard, createNewColumn, updateColumn } from '../../actions/ApiCall/index';
 
 function Column(props) {
-    const { column, onCardDrop, onUpdateColumn } = props;
+    const { column, onCardDrop, onUpdateColumnState } = props;
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [columnTitle, setColumnTitle] = useState('');
     const [openNewCardForm, setOpenNewCardForm] = useState(false);
@@ -32,24 +33,34 @@ function Column(props) {
 
     const toggleShowConfirmModal = () => setShowConfirmModal(!showConfirmModal);
     const cards = mapOrder(column.cards, column.cardOrder, '_id');
+
+    // Remove column
     const onConfirmModalAction = (type) => {
         if (type === MODAL_ACTION_CONFIRM) {
             const newColumn = {
                 ...column,
                 _destroy: true
             }
+            updateColumn(newColumn._id, newColumn).then(updatedColumn => {
+                onUpdateColumnState(updatedColumn);
+            })
 
-            onUpdateColumn(newColumn);
         }
         toggleShowConfirmModal();
     }
-
+    // update column title
     const handleColumnTitleBlur = () => {
-        const newColumn = {
-            ...column,
-            title: columnTitle
+        if (columnTitle !== column.title) {
+            const newColumn = {
+                ...column,
+                title: columnTitle
+            }
+            //call api update column
+            updateColumn(newColumn._id, newColumn).then(updatedColumn => {
+                updatedColumn.cards = newColumn.cards;
+                onUpdateColumnState(updatedColumn);
+            })
         }
-        onUpdateColumn(newColumn);
     }
 
 
@@ -65,19 +76,21 @@ function Column(props) {
             return;
         }
         const newCardToAdd = {
-            id: Math.random().toString(36).substr(2, 5),//random character, will remove when we implement code Api
             boardId: column.boardId,
             columnId: column._id,
-            title: newCardTitle.trim(),
-            cover: null
+            title: newCardTitle.trim()
         }
+        // call api
+        createNewCard(newCardToAdd).then(card => {
+            let newColumn = cloneDeep(column);
+            newColumn.cards.push(card);
+            newColumn.cardOrder.push(card._id);
 
-        let newColumn = cloneDeep(column);
-        newColumn.cards.push(newCardToAdd);
-        newColumn.cardOrder.push(newCardToAdd._id);
-        onUpdateColumn(newColumn);
-        setNewCardTitle('');
-        toggleOpenNewCardForm();
+            onUpdateColumnState(newColumn);
+            setNewCardTitle('');
+            toggleOpenNewCardForm();
+        })
+
     }
 
     return (
