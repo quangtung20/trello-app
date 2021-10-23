@@ -3,12 +3,12 @@ import Column from "../Column/Column";
 import { mapOrder } from "../../ultilities/sorts";
 import { applyDrag } from "../../ultilities/dragDrop";
 import "./BoardContent.scss";
-import { drop, isEmpty } from "lodash";
+import { isEmpty, cloneDeep } from "lodash";
 import { Container, Draggable } from 'react-smooth-dnd';
 import {
     Container as BootstrapContainer, Row, Col, Form, Button
 } from 'react-bootstrap';
-import { fetchBoardDetails, createNewColumn } from '../../actions/ApiCall/index';
+import { fetchBoardDetails, createNewColumn, updateBoard } from '../../actions/ApiCall/index';
 
 function BoardContent() {
     const [board, setBoard] = useState({});
@@ -94,15 +94,19 @@ function BoardContent() {
     }
 
     const onColumnDrop = (dropResult) => {
-        let newColumns = [...columns];
+        let newColumns = cloneDeep(columns);
         newColumns = applyDrag(newColumns, dropResult);
 
-        let newBoard = { ...board };
+        let newBoard = cloneDeep(board);
         newBoard.columnOrder = newColumns.map(c => c._id);
         newBoard.columns = newColumns;
-
         setColumns(newColumns);
         setBoard(newBoard);
+        // call api update column order in board details
+        updateBoard(newBoard._id, newBoard).catch(() => {
+            setColumns(columns);
+            setBoard(board);
+        })
 
     }
 

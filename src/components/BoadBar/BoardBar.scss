@@ -1,10 +1,15 @@
 @import '../../setting';
 
 .navbar-board{
-  height: $navbar-board-height;
+  height: 40px;
     padding: $gap;
     display: flex;
     align-items: center;
     background-color: $board-bg-color;
+    height: 40px;
+    font-family: cursive;
+    color: #191818;
+    font-weight: bold;
     font-size: 1.1rem;
+    margin-left: 10px;
   }
