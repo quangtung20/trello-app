@@ -1,6 +1,11 @@
 import axios from "axios";
 import { API_ROOT } from "../../ultilities/constants";
 
+export const updateBoard = async (id, data) => {
+    const request = await axios.get(`${API_ROOT}/v1/api/boards/${id}`, data);
+    return request.data;
+}
+
 export const fetchBoardDetails = async (id) => {
     const request = await axios.get(`${API_ROOT}/v1/api/boards/${id}`);
     return request.data;
